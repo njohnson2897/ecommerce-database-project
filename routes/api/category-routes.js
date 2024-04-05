@@ -53,40 +53,40 @@ router.put('/:id', async (req, res) => {
   // {
   // category_name: "new category name here"
   // }
-  // try {
-  //   const categoryData = await Product.update(req.body, {
-  //     where: {
-  //       id: req.params.id,
-  //     },
-  //   })
+  try {
+    const categoryData = await Product.update(req.body, {
+      where: {
+        id: req.params.id,
+      },
+    })
     
-  //   if (!categoryData) {
-  //     res.status(404).json({ message: `No category with id of ${req.params.id} found!` });
-  //     return;
-  //   }
+    if (!categoryData) {
+      res.status(404).json({ message: `No category with id of ${req.params.id} found!` });
+      return;
+    }
 
-  // } catch (err) {
-  //   res.status(500).json(err)
-  // }
+  } catch (err) {
+    res.status(500).json(err)
+  }
   });
 
 router.delete('/:id', async (req, res) => {
-  // try {
-  //   const categoryData = await Category.destroy({
-  //     where: {
-  //       id: req.params.id,
-  //     },
-  //   });
+  try {
+    const categoryData = await Category.destroy({
+      where: {
+        id: req.params.id,
+      },
+    });
 
-  //   if (!categoryData) {
-  //     res.status(404).json({ message: `No category with id of ${req.params.id} found!` });
-  //     return;
-  //   }
+    if (!categoryData) {
+      res.status(404).json({ message: `No category with id of ${req.params.id} found!` });
+      return;
+    }
 
-  //   res.status(200).json(categoryData);
-  // } catch (err) {
-  //   res.status(500).json(err);
-  // }
+    res.status(200).json(categoryData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 module.exports = router;
