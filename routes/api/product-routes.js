@@ -33,7 +33,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// create new product
+// create new product, body must include the name, price, # in stock, and tagid of the product
 router.post('/', (req, res) => {
   /* req.body should look like this...
     {
@@ -109,6 +109,7 @@ router.put('/:id', (req, res) => {
     });
 });
 
+// delete product by ID route
 router.delete('/:id', async (req, res) => {
   try {
     const productData = await Product.destroy({
@@ -116,7 +117,7 @@ router.delete('/:id', async (req, res) => {
         id: req.params.id,
       },
     });
-
+// 404 error if product with specified ID doesn't exist
     if (!productData) {
       res.status(404).json({ message: `No product with id of ${req.params.id} found!` });
       return;

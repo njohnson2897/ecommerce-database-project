@@ -3,6 +3,7 @@ const { Tag, Product, ProductTag } = require('../../models');
 
 // The `/api/tags` endpoint
 
+// get all tags route
 router.get('/', async (req, res) => {
   try {
     const tagData = await Tag.findAll({
@@ -14,12 +15,13 @@ router.get('/', async (req, res) => {
   }
 });
 
+// get tag by ID route
 router.get('/:id', async (req, res) => {
   try {
     const tagData = await Tag.findByPk(req.params.id, {
       include: [{ model: Product }],
     });
-
+// 404 erorr if tag with specified ID doesn't exist
     if(!tagData) {
       res.status(404).json({ message: `No tag with id of ${req.params.id} found!` });
       return;
@@ -46,6 +48,7 @@ router.post('/', async (req, res) => {
     }
 });
 
+// update tag by id, body must include updated tag name
 router.put('/:id', async (req, res) => {
   // update a tag's name by its `id` value
   //  req.body should look like this...
@@ -63,7 +66,7 @@ router.put('/:id', async (req, res) => {
         },
       }
     )
-    
+// 404 error if tag with specified ID doesn't exist
     if (!tagData) {
       res.status(404).json({ message: `No tag with id of ${req.params.id} found!` });
       return;
@@ -76,6 +79,7 @@ router.put('/:id', async (req, res) => {
   }
 });
 
+// delete tag by ID route
 router.delete('/:id', async (req, res) => {
     try {
     const tagData = await Tag.destroy({
@@ -83,7 +87,7 @@ router.delete('/:id', async (req, res) => {
         id: req.params.id,
       },
     });
-
+// 404  error if tag with specified ID doesn't exist
     if (!tagData) {
       res.status(404).json({ message: `No tag with id of ${req.params.id} found!` });
       return;
